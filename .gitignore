@@ -1,0 +1,14 @@
+.HA_VERSION
+home-assistant*
+.storage/
+automations.yaml
+blueprints/
+configuration.yaml
+scenes.yaml
+scripts.yaml
+secrets.yaml
+*/__pycache__/
+#custom_components/lg_ess/coordinators/__pycache__/
+
+custom_components/
+!custom_components/lg_ess

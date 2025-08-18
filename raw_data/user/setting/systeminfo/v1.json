@@ -1,0 +1,49 @@
+{
+  "pms": {
+    "model": "D010KE1N211",
+    "serialno": "DE190xxxxxxxxxx",
+    "ac_input_power": "13500",
+    "ac_output_power": "10",
+    "install_date": "2019-11-23"
+  },
+  "batt": {
+    "capacity": "112",
+    "type": "hbc",
+    "install_date": "2024-09-12",
+
+    "nameplate_energy_1": "11250",
+    "hbc_cycle_count_1": "165",
+    "hbc_remaining_cap_1": "36241",
+    "hbc_dischg_rate_1": "0.0188",
+    "hbc_chg_energy_1": "2000625",
+    "hbc_dischg_energy_1": "1982409",
+    "hbc_chg_cap_1": "6276.400000000001",
+    "hbc_dischg_cap_1": "6399.700000000001",
+    "hbc_deep_dischg_cnt_1": "0",
+    "hbc_over_chg_cnt_1": "0",
+
+    "nameplate_energy_2": "0",
+    "hbc_cycle_count_2": "0",
+    "hbc_remaining_cap_2": "0",
+    "hbc_dischg_rate_2": "0",
+    "hbc_chg_energy_2": "0",
+    "hbc_dischg_energy_2": "0",
+    "hbc_chg_cap_2": "0",
+    "hbc_dischg_cap_2": "0",
+    "hbc_deep_dischg_cnt_2": "0",
+    "hbc_over_chg_cnt_2": "0",
+
+    "hbc_a_serials": "",
+    "hbc_b_serials": "",
+    "hbc_a_pack_dates": "",
+    "hbc_b_pack_dates": ""
+  },
+  "version": {
+    "pms_version": "10.05.7437",
+    "pms_build_date": "2025-01-14 R2173",
+    "pcs_version": "LG 05.00.01.00 R201 1.197.3",
+    "bms_version": "BMS 00.04.00.05 ",
+    "bms_unit1_version": "BMS 00.04.00.05 ",
+    "bms_unit2_version": " "
+  }
+}

@@ -1,0 +1,63 @@
+{
+    "PV": {
+        "brand": "Trina",
+        "capacity": "13650",
+        "pv1_voltage": "27.500000",
+        "pv2_voltage": "26.799999",
+        "pv3_voltage": "44.900002",
+        "pv1_current": "0.030000",
+        "pv2_current": "0.020000",
+        "pv3_current": "0.030000",
+        "pv1_power": "0",
+        "pv2_power": "0",
+        "pv3_power": "0",
+        "today_pv_generation_sum": "74679",
+        "today_month_pv_generation_sum": "622612"
+    },
+    "BATT": {
+        "status": "2",
+        "soc": "87.7",
+        "dc_power": "453",
+        "winter_setting": "off",
+        "winter_status": "off",
+        "safety_soc": "10",
+        "backup_setting": "off",
+        "backup_status": "off",
+        "backup_soc": "0",
+        "today_batt_discharge_enery": "3681",
+        "today_batt_charge_energy": "5198",
+        "month_batt_charge_energy": "55473",
+        "month_batt_discharge_energy": "50838"
+    },
+    "GRID": {
+        "active_power": "1",
+        "a_phase": "227.000000",
+        "freq": "50.049999",
+        "today_grid_feed_in_energy": "61422",
+        "today_grid_power_purchase_energy": "39",
+        "month_grid_feed_in_energy": "442403",
+        "month_grid_power_purchase_energy": "950"
+    },
+    "LOAD": {
+        "load_power": "448",
+        "today_load_consumption_sum": "11779",
+        "today_pv_direct_consumption_enegy": "8059",
+        "today_batt_discharge_enery": "3681",
+        "today_grid_power_purchase_energy": "39",
+        "month_load_consumption_sum": "176524",
+        "month_pv_direct_consumption_energy": "124736",
+        "month_batt_discharge_energy": "50838",
+        "month_grid_power_purchase_energy": "950"
+    },
+    "PCS": {
+        "today_self_consumption": "17.8",
+        "month_co2_reduction_accum": "442054",
+        "today_pv_generation_sum": "74679",
+        "month_pv_generation_sum": "622612",
+        "today_grid_feed_in_energy": "61422",
+        "month_grid_feed_in_energy": "442403",
+        "pcs_stauts": "3",
+        "feed_in_limitation": "70",
+        "operation_mode": "0"
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Device is already configured"
+        },
+        "error": {
+            "cannot_connect": "Failed to connect",
+            "invalid_auth": "Invalid authentication",
+            "unknown": "Unexpected error"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Password",
+                    "username": "Username"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "load_power": {"name": "House Consumption"},
+            "bat_user_soc": {"name": "Battery State of Charge"},
+            "bat_status": {"name": "Battery Status", "state": {"0": "Standby", "1": "charging", "2": "discharging", "6": "charging from grid", "10": "switched off"}},
+            "batt_directional": {"name": "Battery Power"},
+            "bat_energy_charge_today": {"name": "Battery Charge Energy (Today)"},
+            "bat_energy_discharge_today": {"name": "Battery Discharge Energy (Today)"},
+            "bat_energy_charge_month": {"name": "Battery Charge Energy (Month)"},
+            "bat_energy_discharge_month": {"name": "Battery Discharge Energy (Month)"},
+            "grid_directional": {"name": "Grid Power"},
+            "grid_frequency": {"name": "Grid Frequency"},
+            "grid_voltage": {"name": "Grid Voltage"},
+            "grid_energy_feed_in_today": {"name": "Grid Feed-in (Today)"},
+            "grid_energy_feed_in_month": {"name": "Grid Feed-in (Month)"},
+            "grid_energy_purchase_today": {"name": "Grid Purchase (Today)"},
+            "grid_energy_purchase_month": {"name": "Grid Purchase (Month)"},
+            "pv1_voltage": {"name": "PV String 1 Voltage"},
+            "pv2_voltage": {"name": "PV String 2 Voltage"},
+            "pv3_voltage": {"name": "PV String 3 Voltage"},
+            "pv1_current": {"name": "PV String 1 Current"},
+            "pv2_current": {"name": "PV String 2 Current"},
+            "pv3_current": {"name": "PV String 3 Current"},
+            "pv1_power": {"name": "PV String 1 Power"},
+            "pv2_power": {"name": "PV String 2 Power"},
+            "pv3_power": {"name": "PV String 3 Power"},
+            "pv_capacity": {"name": "PV Capacity"},
+            "pv_energy_today": {"name": "PV Total Energy (Today)"},
+            "pv_energy_month": {"name": "PV Total Energy (Month)"},
+            "pv_total_power": {"name": "PV Total Power"},
+            "operation_mode": {"name": "Operation Mode", "state": {"0": "Stop", "1": "Normal Operation", "2": "PV Only Mode"}},
+            "self_consumption_rate": {"name": "Self-consumption Rate (Today)"},
+            "self_consumption_rate_month": {"name": "Self-consumption Rate (Month)"},
+            "grid_independence_rate": {"name": "Grid Independence (Today)"},
+            "grid_independence_rate_month": {"name": "Grid Independence (Month)"}
+        },
+        "binary_sensor": {
+            "direct_consuming": {"name": "Direct PV Consumption"},
+            "battery_charging": {"name": "Battery Charging from PV"},
+            "battery_discharging": {"name": "Battery Discharging"},
+            "grid_selling": {"name": "Grid Feed-in"},
+            "grid_buying": {"name": "Grid Consumption"},
+            "charging_from_grid": {"name": "Battery Charging from Grid"},
+            "system_online": {"name": "System Online"},
+            "pv_generating": {"name": "PV Generating"}
+        },
+        "switch": {
+            "operation_mode": {"name": "Operation Mode"},
+            "winter_mode": {"name": "Winter Mode"},
+            "backup_mode": {"name": "Backup Mode"},
+            "auto_charge": {"name": "Charge from Grid"}
+        },
+        "select": {
+            "charging_mode": {
+                "name": "Charging Mode",
+                "state": {
+                    "fast_charge": "Fast Charge",
+                    "battery_care": "Battery Care",
+                    "weather_forecast": "Weather Forecast"
+                }
+            }
+        },
+        "number": {
+            "backup_soc": {"name": "Backup-Reserve"}
+        }
+    }
+}

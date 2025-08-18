@@ -1,0 +1,13 @@
+{
+    "type": "wired",
+    "setting": "manual",
+    "ip": "192.168.0.70",
+    "mask": "255.255.255.0",
+    "gateway": "192.168.0.1",
+    "dns": "192.168.0.1",
+    "registered": "1",
+    "connected": "internet_connected",
+    "remote_control": "2",
+    "drmcontrol": "0",
+    "pms_orient": "255"
+}

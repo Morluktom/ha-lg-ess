@@ -1,0 +1,286 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Gerät ist schon eingerichtet"
+        },
+        "error": {
+            "cannot_connect": "Verbindungsfehler",
+            "invalid_auth": "Authentifizierung fehlgeschlagen",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Passwort",
+                    "username": "Nutzername"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "load_power": {"name": "Hausverbrauch"},
+            "bat_user_soc": {"name": "Batterie Ladezustand"},
+            "bat_status": {"name": "Batterie Status",  "state": {"0": "Standby","1": "laden", "2": "entladen", "6": "laden vom Netz", "10": "ausgeschaltet"}},
+            "batt_directional": {"name": "Batterie Leistung"},
+            "bat_energy_charge_today": {"name": "Batterie Ladeenergie (Heute)"},
+            "bat_energy_discharge_today": {"name": "Batterie Entladeenergie (Heute)"},
+            "bat_energy_charge_month": {"name": "Batterie Ladeenergie (Monat)"},
+            "bat_energy_discharge_month": {"name": "Batterie Entladeenergie (Monat)"},
+            "grid_directional": {"name": "Netz Leistung"},
+            "grid_frequency": {"name": "Netzfrequenz"},
+            "grid_voltage": {"name": "Netzspannung"},
+            "grid_energy_feed_in_today": {"name": "Netzeinspeisung (Heute)"},
+            "grid_energy_feed_in_month": {"name": "Netzeinspeisung (Monat)"},
+            "grid_energy_purchase_today": {"name": "Netzbezug (Heute)"},
+            "grid_energy_purchase_month": {"name": "Netzbezug (Monat)"},
+            "pv1_voltage": {"name": "PV String 1 Spannung"},
+            "pv2_voltage": {"name": "PV String 2 Spannung"},
+            "pv3_voltage": {"name": "PV String 3 Spannung"},
+            "pv1_current": {"name": "PV String 1 Strom"},
+            "pv2_current": {"name": "PV String 2 Strom"},
+            "pv3_current": {"name": "PV String 3 Strom"},
+            "pv1_power": {"name": "PV String 1 Leistung"},
+            "pv2_power": {"name": "PV String 2 Leistung"},
+            "pv3_power": {"name": "PV String 3 Leistung"},
+            "pv_capacity": {"name": "PV Kapazität"},
+            "pv_energy_today": {"name": "PV Energie Gesamt (Heute)"},
+            "pv_energy_month": {"name": "PV Energie Gesamt (Monat)"},
+            "pv_total_power": {"name": "PV Gesamtleistung"},
+            "operation_mode": {"name": "Betriebsmodus", "state": {"0": "Stop","1": "Normal Betrieb", "2": "Nur PV Modus"}},
+            "self_consumption_rate": {"name": "Eigenverbrauchsrate (Heute)"},
+            "self_consumption_rate_month": {"name": "Eigenverbrauchsrate (Monat)"},
+            "grid_independence_rate": {"name": "Autarkie (Heute)"},
+            "grid_independence_rate_month": {"name": "Autarkie (Monat)"},
+
+            "pms_model": {"name": "PMS Modell"},
+            "pms_serialno": {"name": "PMS Seriennummer"},
+            "pms_ac_input_power": {"name": "AC Eingangsleistung",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "pms_ac_output_power": {
+                "name": "AC Ausgangsleistung",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "pms_install_date": {
+                "name": "PMS Installationsdatum"
+            },
+            "battery_capacity": {
+                "name": "Batteriekapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_type": {
+                "name": "Batterietyp"
+            },
+            "battery_install_date": {
+                "name": "Batterie Installationsdatum"
+            },
+            "battery_nameplate_energy_1": {
+                "name": "Batterie 1 Nennenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_cycle_count_1": {
+                "name": "Batterie 1 Zyklenanzahl"
+            },
+            "battery_remaining_cap_1": {
+                "name": "Batterie 1 Verbleibende Kapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_rate_1": {
+                "name": "Batterie 1 Entladerate",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_charge_energy_1": {
+                "name": "Batterie 1 Ladeenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_energy_1": {
+                "name": "Batterie 1 Entladeenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_charge_cap_1": {
+                "name": "Batterie 1 Ladekapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_cap_1": {
+                "name": "Batterie 1 Entladekapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_deep_discharge_count_1": {
+                "name": "Batterie 1 Tiefentladungen"
+            },
+            "battery_overcharge_count_1": {
+                "name": "Batterie 1 Überladungen"
+            },
+            "battery_nameplate_energy_2": {
+                "name": "Batterie 2 Nennenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_cycle_count_2": {
+                "name": "Batterie 2 Zyklenanzahl"
+            },
+            "battery_remaining_cap_2": {
+                "name": "Batterie 2 Verbleibende Kapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_rate_2": {
+                "name": "Batterie 2 Entladerate",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_charge_energy_2": {
+                "name": "Batterie 2 Ladeenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_energy_2": {
+                "name": "Batterie 2 Entladeenergie",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_charge_cap_2": {
+                "name": "Batterie 2 Ladekapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_discharge_cap_2": {
+                "name": "Batterie 2 Entladekapazität",
+                "state_attributes": {
+                "unit_of_measurement": {
+                    "name": "Einheit"
+                }
+                }
+            },
+            "battery_deep_discharge_count_2": {
+                "name": "Batterie 2 Tiefentladungen"
+            },
+            "battery_overcharge_count_2": {
+                "name": "Batterie 2 Überladungen"
+            },
+            "battery_a_serials": {
+                "name": "Batterie A Seriennummern"
+            },
+            "battery_b_serials": {
+                "name": "Batterie B Seriennummern"
+            },
+            "battery_a_pack_dates": {
+                "name": "Batterie A Pack Daten"
+            },
+            "battery_b_pack_dates": {
+                "name": "Batterie B Pack Daten"
+            },
+            "pms_version": {
+                "name": "PMS Version"
+            },
+            "pms_build_date": {
+                "name": "PMS Build-Datum"
+            },
+            "pcs_version": {
+                "name": "PCS Version"
+            },
+            "bms_version": {
+                "name": "BMS Version"
+            },
+            "bms_unit1_version": {
+                "name": "BMS Einheit 1 Version"
+            },
+            "bms_unit2_version": {
+                "name": "BMS Einheit 2 Version"
+            }
+
+
+
+
+        },
+        "binary_sensor": {
+            "direct_consuming": {"name": "Direktverbrauch PV", "state": {"off": "Aus","on": "An"}},
+            "battery_charging": {"name": "Batterie lädt von PV", "state": {"off": "Aus","on": "An"}},
+            "battery_discharging": {"name": "Batterie entlädt", "state": {"off": "Aus","on": "An"}},
+            "grid_selling": {"name": "Netzeinspeisung", "state": {"off": "Aus","on": "An"}},
+            "grid_buying": {"name": "Netzbezug", "state": {"off": "Aus","on": "An"}},
+            "charging_from_grid": {"name": "Batterie lädt aus Netz", "state": {"off": "Aus","on": "An"}},
+            "system_online": {"name": "System online"},
+            "pv_generating": {"name": "PV erzeugt", "state": {"off": "Aus","on": "An"}}
+        },
+         "switch": {
+            "operation_mode": {"name": "Betrieb"},
+            "winter_mode": {"name": "Winter-Modus"},
+            "backup_mode": {"name": "Backup-Modus"},
+            "auto_charge": {"name": "Aufladen vom Netz"}
+        },
+        "select": {
+            "charging_mode": {
+                "name": "Lademodus",
+                "state": {
+                    "fast_charge": "Schnellladung",
+                    "battery_care": "Batteriepflege",
+                    "weather_forecast": "Wettervorhersage"
+                }
+            }
+        },
+        "number": {
+            "backup_soc": {"name": "Backup-Reserve"}
+        }
+    }
+}

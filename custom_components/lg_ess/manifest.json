@@ -1,0 +1,14 @@
+{
+  "domain": "lg_ess",
+  "name": "LG ESS",
+  "codeowners": ["@custom"],
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://github.com/dkarv/ha-lg-ess",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/dkarv/ha-lg-ess/issues",
+  "requirements": [],
+  "version": "1.0.0",
+  "loggers": ["custom_components.lg_ess"]
+}
