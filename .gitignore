@@ -7,8 +7,7 @@ configuration.yaml
 scenes.yaml
 scripts.yaml
 secrets.yaml
-*/__pycache__/
-#custom_components/lg_ess/coordinators/__pycache__/
 
-custom_components/
-!custom_components/lg_ess
+custom_components/hacs/
+custom_components/lg_ess/__pycache__/
+custom_components/lg_ess/coordinators/__pycache__/

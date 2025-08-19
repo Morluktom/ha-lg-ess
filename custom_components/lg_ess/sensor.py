@@ -27,6 +27,7 @@ from .const import DOMAIN
 from .coordinators.home import LgEssHomeDataUpdateCoordinator
 from .coordinators.common import LgEssCommonDataUpdateCoordinator
 from .coordinators.batt_settings import LgEssSettingsDataUpdateCoordinator
+from .coordinators.system_info import LgEssSystemInfoDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -98,6 +99,225 @@ ENTITY_DEFINITIONS = [
         SensorDeviceClass.ENERGY,
         SensorStateClass.TOTAL_INCREASING,
         "mdi:battery-minus",
+    ),
+    # Battery detailed information from PMS/BMS
+    (
+        "system_info_coordinator",
+        "battery_capacity",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY_STORAGE,
+        None,
+        "mdi:battery-high",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_type",
+        None,
+        None,
+        None,
+        "mdi:information-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_install_date",
+        None,
+        None,
+        None,
+        "mdi:calendar",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_nameplate_energy_1",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        None,
+        "mdi:battery-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_cycle_count_1",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:counter",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_remaining_cap_1",
+        "Ah",
+        None,
+        None,
+        "mdi:battery-medium",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_rate_1",
+        PERCENTAGE,
+        None,
+        SensorStateClass.MEASUREMENT,
+        "mdi:battery-arrow-down-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_charge_energy_1",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-plus-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_energy_1",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-minus-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_charge_cap_1",
+        "Ah",
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-charging-80",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_cap_1",
+        "Ah",
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-arrow-down",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_deep_discharge_count_1",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-alert",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_overcharge_count_1",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-alert-variant",
+    ),
+    # Battery Unit 2 (if present)
+    (
+        "system_info_coordinator",
+        "battery_nameplate_energy_2",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        None,
+        "mdi:battery-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_cycle_count_2",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:counter",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_remaining_cap_2",
+        "Ah",
+        None,
+        None,
+        "mdi:battery-medium",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_rate_2",
+        PERCENTAGE,
+        None,
+        SensorStateClass.MEASUREMENT,
+        "mdi:battery-arrow-down-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_charge_energy_2",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-plus-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_energy_2",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-minus-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_charge_cap_2",
+        "Ah",
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-charging-80",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_discharge_cap_2",
+        "Ah",
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-arrow-down",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_deep_discharge_count_2",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-alert",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_overcharge_count_2",
+        None,
+        None,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:battery-alert-variant",
+    ),
+    # Battery Serial Numbers and Pack Dates
+    (
+        "system_info_coordinator",
+        "battery_a_serials",
+        None,
+        None,
+        None,
+        "mdi:identifier",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_b_serials",
+        None,
+        None,
+        None,
+        "mdi:identifier",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_a_pack_dates",
+        None,
+        None,
+        None,
+        "mdi:calendar-range",
+    ),
+    (
+        "system_info_coordinator",
+        "battery_b_pack_dates",
+        None,
+        None,
+        None,
+        "mdi:calendar-range",
     ),
     # Grid sensors
     (
@@ -232,7 +452,7 @@ ENTITY_DEFINITIONS = [
     (
         "common_coordinator",
         "pv_capacity",
-        UnitOfPower.KILO_WATT,
+        "kWp",
         None,
         None,
         "mdi:solar-panel",
@@ -260,6 +480,96 @@ ENTITY_DEFINITIONS = [
         SensorDeviceClass.POWER,
         SensorStateClass.MEASUREMENT,
         "mdi:solar-panel",
+    ),
+    # PMS System Information
+    (
+        "system_info_coordinator",
+        "pms_model",
+        None,
+        None,
+        None,
+        "mdi:information-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "pms_serialno",
+        None,
+        None,
+        None,
+        "mdi:barcode",
+    ),
+    (
+        "system_info_coordinator",
+        "pms_ac_input_power",
+        UnitOfPower.KILO_WATT,
+        SensorDeviceClass.POWER,
+        None,
+        "mdi:power-plug",
+    ),
+    (
+        "system_info_coordinator",
+        "pms_ac_output_power",
+        UnitOfPower.KILO_WATT,
+        SensorDeviceClass.POWER,
+        SensorStateClass.MEASUREMENT,
+        "mdi:power-socket-eu",
+    ),
+    (
+        "system_info_coordinator",
+        "pms_install_date",
+        None,
+        None,
+        None,
+        "mdi:calendar-check",
+    ),
+    # Version Information
+    (
+        "system_info_coordinator",
+        "pms_version",
+        None,
+        None,
+        None,
+        "mdi:package-variant",
+    ),
+    (
+        "system_info_coordinator",
+        "pms_build_date",
+        None,
+        None,
+        None,
+        "mdi:clock-outline",
+    ),
+    (
+        "system_info_coordinator",
+        "pcs_version",
+        None,
+        None,
+        None,
+        "mdi:package-variant-closed",
+    ),
+    (
+        "system_info_coordinator",
+        "bms_version",
+        None,
+        None,
+        None,
+        "mdi:chip",
+    ),
+    (
+        "system_info_coordinator",
+        "bms_unit1_version",
+        None,
+        None,
+        None,
+        "mdi:chip",
+    ),
+    (
+        "system_info_coordinator",
+        "bms_unit2_version",
+        None,
+        None,
+        None,
+        "mdi:chip",
     ),
     # Status and operational sensors
     ("home_coordinator", "operation_mode", None, None, None, "mdi:cog"),
@@ -367,7 +677,8 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
         self,
         coordinator: LgEssHomeDataUpdateCoordinator
         | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator,
+        | LgEssSettingsDataUpdateCoordinator
+        | LgEssSystemInfoDataUpdateCoordinator,
         entry: ConfigEntry,
         key: str,
         unit: str | None,
@@ -391,7 +702,9 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
     @property
     def available(self) -> bool:
         """Return if entity is available."""
-        return self.coordinator.last_update_success
+        return (
+            self.coordinator.last_update_success and self.coordinator.data is not None
+        )
 
     @property
     def native_value(self) -> Any:
@@ -422,8 +735,20 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
                 or self._key in ["pv2_power"]
                 or self._key in ["pv3_power"]
                 or self._key in ["pv_total_power"]
+                or self._key in ["battery_nameplate_energy_1"]
+                or self._key in ["battery_remaining_cap_1"]
+                or self._key in ["battery_charge_energy_1"]
+                or self._key in ["battery_discharge_energy_1"]
+                or self._key in ["battery_nameplate_energy_2"]
+                or self._key in ["battery_remaining_cap_2"]
+                or self._key in ["battery_charge_energy_2"]
+                or self._key in ["battery_discharge_energy_2"]
+                or self._key in ["pms_ac_input_power"]
             ):
                 return round(float(value) / 1000, 3)
+
+            if self._key in ["battery_capacity"]:
+                return round(float(value) / 10, 1)
 
         return value
 

@@ -131,23 +131,34 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         try:
             if method == "POST":
                 async with self._session.post(url, json=content) as response:
-                    if response.status == 200:
+                    if (response.status == 401) or (
+                        response.status == 405
+                    ):  # Unauthorized, re-authenticate
+                        await self._login()
+                        async with self._session.post(
+                            url, json=content
+                        ) as retry_response:
+                            return await retry_response.json()
+
+                    elif response.status == 200:
                         return await response.json()
                     else:
                         _LOGGER.warning(
                             "Request failed: HTTP %s for %s", response.status, endpoint
                         )
                         self._auth_key = None
-                        return {}
+                        return None
 
             elif method == "PUT":
                 async with self._session.put(
                     url, headers=headers, json=content
                 ) as response:
-                    if response.status == 401:  # Unauthorized, re-authenticate
+                    if (response.status == 401) or (
+                        response.status == 405
+                    ):  # Unauthorized, re-authenticate
                         await self._login()
-                        async with self._session.post(
-                            url, json=content
+                        async with self._session.put(
+                            url, headers=headers, json=content
                         ) as retry_response:
                             return await retry_response.json()
                     elif response.status == 200:
@@ -157,14 +168,13 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
                             "Request failed: HTTP %s for %s", response.status, endpoint
                         )
                         self._auth_key = None
-                        return {}
+                        return None
 
         except Exception as err:
             _LOGGER.error("Request to %s failed: %s", endpoint, err)
-            return {}
+            return None
 
-    @staticmethod
-    def safe_number_convert(value):
+    def safe_number_convert(self, value):
         """Konvertiert einen Wert sicher zu einer Zahl."""
         # Bereits eine Zahl?
         if isinstance(value, (int, float)):
@@ -208,6 +218,11 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         """Update settings data via direct HTTP API calls."""
 
         setting_bat = await self._make_request("/user/setting/batt")
+
+        if not setting_bat:
+            # Keep previous data instead of returning None
+            return self.data or {}
+
         _LOGGER.debug("/user/setting/batt: %s", json.dumps(setting_bat))
 
         return setting_bat
@@ -216,6 +231,11 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         """Update common data via direct HTTP API calls."""
 
         common_data = await self._make_request("/user/essinfo/common")
+
+        if not common_data:
+            # Keep previous data instead of returning None
+            return self.data or {}
+
         _LOGGER.debug("/user/essinfo/common: %s", json.dumps(common_data))
 
         return common_data
@@ -224,6 +244,10 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         """Update home data via direct HTTP API calls."""
 
         home_data = await self._make_request("/user/essinfo/home")
+        if not home_data:
+            # Keep previous data instead of returning None
+            return self.data or {}
+
         _LOGGER.debug("/user/essinfo/home: %s", json.dumps(home_data))
 
         return home_data
@@ -232,6 +256,11 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         """Update system info via direct HTTP API calls."""
 
         system_info = await self._make_request("/user/setting/systeminfo")
+
+        if not system_info:
+            # Keep previous data instead of returning None
+            return self.data or {}
+
         _LOGGER.debug("/user/setting/systeminfo: %s", json.dumps(system_info))
 
         return system_info
@@ -240,6 +269,10 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         """Update network info via direct HTTP API calls."""
 
         network_info = await self._make_request("/user/setting/network")
+        if not network_info:
+            # Keep previous data instead of returning None
+            return self.data or {}
+
         _LOGGER.debug("/user/setting/network: %s", json.dumps(network_info))
 
         return network_info

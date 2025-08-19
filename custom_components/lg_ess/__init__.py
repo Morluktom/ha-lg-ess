@@ -11,6 +11,7 @@ from .const import DOMAIN
 from .coordinators.home import LgEssHomeDataUpdateCoordinator
 from .coordinators.common import LgEssCommonDataUpdateCoordinator
 from .coordinators.batt_settings import LgEssSettingsDataUpdateCoordinator
+from .coordinators.system_info import LgEssSystemInfoDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -31,11 +32,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     home_coordinator = LgEssHomeDataUpdateCoordinator(hass, entry)
     common_coordinator = LgEssCommonDataUpdateCoordinator(hass, entry)
     settings_coordinator = LgEssSettingsDataUpdateCoordinator(hass, entry)
+    system_info_coordinator = LgEssSystemInfoDataUpdateCoordinator(hass, entry)
 
     coordinators = {
         "home_coordinator": home_coordinator,
         "common_coordinator": common_coordinator,
         "settings_coordinator": settings_coordinator,
+        "system_info_coordinator": system_info_coordinator,
     }
 
     # Setup all coordinators

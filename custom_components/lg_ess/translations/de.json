@@ -56,198 +56,43 @@
 
             "pms_model": {"name": "PMS Modell"},
             "pms_serialno": {"name": "PMS Seriennummer"},
-            "pms_ac_input_power": {"name": "AC Eingangsleistung",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
+            "pms_ac_input_power": {"name": "PMS AC Eingangsleistung"},
+            "pms_ac_output_power": {"name": "PMS AC Ausgangsleistung"},
+            "pms_install_date": {"name": "PMS Installationsdatum"},
+            "battery_capacity": {"name": "Batteriekapazität"},
+            "battery_type": {"name": "Batterietyp"},
+            "battery_install_date": {"name": "Batterie Installationsdatum"},
+            "battery_nameplate_energy_1": {"name": "Batterie 1 Nennenergie"},
+            "battery_cycle_count_1": {"name": "Batterie 1 Zyklenanzahl"},
+            "battery_remaining_cap_1": {"name": "Batterie 1 Verbleibende Kapazität"},
+            "battery_discharge_rate_1": {"name": "Batterie 1 Selbstentladungsrate"},
+            "battery_charge_energy_1": {"name": "Batterie 1 Ladeenergie"},
+            "battery_discharge_energy_1": { "name": "Batterie 1 Energiedurchsatz"},
+            "battery_charge_cap_1": {"name": "Batterie 1 Ladekapazität"},
+            "battery_discharge_cap_1": {"name": "Batterie 1 Kapazitätsdurchsatz"},
+            "battery_deep_discharge_count_1": {"name": "Batterie 1 Tiefentladungen"},
+            "battery_overcharge_count_1": {"name": "Batterie 1 Überladungen"},
+            "battery_nameplate_energy_2": {"name": "Batterie 2 Nennenergie"},
+            "battery_cycle_count_2": {"name": "Batterie 2 Zyklenanzahl"},
+            "battery_remaining_cap_2": {"name": "Batterie 2 Verbleibende Kapazität"},
+            "battery_discharge_rate_2": {"name": "Batterie 2 Selbstentladungsrate"},
+            "battery_charge_energy_2": {"name": "Batterie 2 Ladeenergie"
             },
-            "pms_ac_output_power": {
-                "name": "AC Ausgangsleistung",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "pms_install_date": {
-                "name": "PMS Installationsdatum"
-            },
-            "battery_capacity": {
-                "name": "Batteriekapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_type": {
-                "name": "Batterietyp"
-            },
-            "battery_install_date": {
-                "name": "Batterie Installationsdatum"
-            },
-            "battery_nameplate_energy_1": {
-                "name": "Batterie 1 Nennenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_cycle_count_1": {
-                "name": "Batterie 1 Zyklenanzahl"
-            },
-            "battery_remaining_cap_1": {
-                "name": "Batterie 1 Verbleibende Kapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_rate_1": {
-                "name": "Batterie 1 Entladerate",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_charge_energy_1": {
-                "name": "Batterie 1 Ladeenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_energy_1": {
-                "name": "Batterie 1 Entladeenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_charge_cap_1": {
-                "name": "Batterie 1 Ladekapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_cap_1": {
-                "name": "Batterie 1 Entladekapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_deep_discharge_count_1": {
-                "name": "Batterie 1 Tiefentladungen"
-            },
-            "battery_overcharge_count_1": {
-                "name": "Batterie 1 Überladungen"
-            },
-            "battery_nameplate_energy_2": {
-                "name": "Batterie 2 Nennenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_cycle_count_2": {
-                "name": "Batterie 2 Zyklenanzahl"
-            },
-            "battery_remaining_cap_2": {
-                "name": "Batterie 2 Verbleibende Kapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_rate_2": {
-                "name": "Batterie 2 Entladerate",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_charge_energy_2": {
-                "name": "Batterie 2 Ladeenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_energy_2": {
-                "name": "Batterie 2 Entladeenergie",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_charge_cap_2": {
-                "name": "Batterie 2 Ladekapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_discharge_cap_2": {
-                "name": "Batterie 2 Entladekapazität",
-                "state_attributes": {
-                "unit_of_measurement": {
-                    "name": "Einheit"
-                }
-                }
-            },
-            "battery_deep_discharge_count_2": {
-                "name": "Batterie 2 Tiefentladungen"
-            },
-            "battery_overcharge_count_2": {
-                "name": "Batterie 2 Überladungen"
-            },
-            "battery_a_serials": {
-                "name": "Batterie A Seriennummern"
-            },
-            "battery_b_serials": {
-                "name": "Batterie B Seriennummern"
-            },
-            "battery_a_pack_dates": {
-                "name": "Batterie A Pack Daten"
-            },
-            "battery_b_pack_dates": {
-                "name": "Batterie B Pack Daten"
-            },
-            "pms_version": {
-                "name": "PMS Version"
-            },
-            "pms_build_date": {
-                "name": "PMS Build-Datum"
-            },
-            "pcs_version": {
-                "name": "PCS Version"
-            },
-            "bms_version": {
-                "name": "BMS Version"
-            },
-            "bms_unit1_version": {
-                "name": "BMS Einheit 1 Version"
-            },
-            "bms_unit2_version": {
-                "name": "BMS Einheit 2 Version"
-            }
+            "battery_discharge_energy_2": {"name": "Batterie 2 Energiedurchsatz"},
+            "battery_charge_cap_2": {"name": "Batterie 2 Ladekapazität"},
+            "battery_discharge_cap_2": {"name": "Batterie 2 Kapazitätsdurchsatz"},
+            "battery_deep_discharge_count_2": {"name": "Batterie 2 Tiefentladungen"},
+            "battery_overcharge_count_2": {"name": "Batterie 2 Überladungen"},
+            "battery_a_serials": {"name": "Batterie A Seriennummern"},
+            "battery_b_serials": {"name": "Batterie B Seriennummern"},
+            "battery_a_pack_dates": {"name": "Batterie A Pack Daten"},
+            "battery_b_pack_dates": {"name": "Batterie B Pack Daten"},
+            "pms_version": {"name": "PMS Version"},
+            "pms_build_date": {"name": "PMS Build-Datum"},
+            "pcs_version": {"name": "PCS Version"},
+            "bms_version": {"name": "BMS Version"},
+            "bms_unit1_version": {"name": "BMS Einheit 1 Version"},
+            "bms_unit2_version": {"name": "BMS Einheit 2 Version"}
 
 
 
