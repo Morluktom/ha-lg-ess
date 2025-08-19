@@ -3,15 +3,22 @@
 from __future__ import annotations
 
 import logging
-from homeassistant.config_entries import ConfigEntry
+from homeassistant.config_entries import ConfigEntry, ConfigEntryNotReady
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN
-from .coordinators.home import LgEssHomeDataUpdateCoordinator
-from .coordinators.common import LgEssCommonDataUpdateCoordinator
-from .coordinators.batt_settings import LgEssSettingsDataUpdateCoordinator
-from .coordinators.system_info import LgEssSystemInfoDataUpdateCoordinator
+from .coordinator import (
+    LgEssHomeDataUpdateCoordinator,
+    LgEssCommonDataUpdateCoordinator,
+    LgEssSettingsDataUpdateCoordinator,
+    LgEssSystemInfoDataUpdateCoordinator,
+)
+from .lg_ess import (
+    LgEss,
+    LgEssAuthException,
+    LgEssException,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,11 +35,17 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up LG ESS from a config entry."""
     hass.data.setdefault(DOMAIN, {})
 
+    try:
+        lgEss = await LgEss.create(None, entry.data["password"], entry.data["host"])
+    except LgEssException as e:
+        _LOGGER.exception("Error setting up ESS api")
+        raise ConfigEntryNotReady from e
+
     # Initialize all coordinators
-    home_coordinator = LgEssHomeDataUpdateCoordinator(hass, entry)
-    common_coordinator = LgEssCommonDataUpdateCoordinator(hass, entry)
-    settings_coordinator = LgEssSettingsDataUpdateCoordinator(hass, entry)
-    system_info_coordinator = LgEssSystemInfoDataUpdateCoordinator(hass, entry)
+    home_coordinator = LgEssHomeDataUpdateCoordinator(hass, lgEss, entry)
+    common_coordinator = LgEssCommonDataUpdateCoordinator(hass, lgEss, entry)
+    settings_coordinator = LgEssSettingsDataUpdateCoordinator(hass, lgEss, entry)
+    system_info_coordinator = LgEssSystemInfoDataUpdateCoordinator(hass, lgEss, entry)
 
     coordinators = {
         "home_coordinator": home_coordinator,
@@ -40,28 +53,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         "settings_coordinator": settings_coordinator,
         "system_info_coordinator": system_info_coordinator,
     }
-
-    # Setup all coordinators
-    setup_errors = []
-
-    for name, coordinator in coordinators.items():
-        try:
-            await coordinator.async_setup()
-            _LOGGER.debug("Successfully setup %s", name)
-        except Exception as err:
-            _LOGGER.error("Failed to setup %s: %s", name, err)
-            setup_errors.append(f"{name}: {err}")
-
-    # Wenn alle Coordinatoren fehlschlagen, Setup abbrechen
-    if len(setup_errors) == len(coordinators):
-        _LOGGER.error("All coordinators failed to setup: %s", setup_errors)
-        # Cleanup bereits initialisierte Coordinators
-        for coordinator in coordinators.values():
-            try:
-                await coordinator.async_close()
-            except Exception:
-                pass
-        return False
 
     # Erste Aktualisierung für alle erfolgreichen Coordinators
     refresh_errors = []
@@ -89,7 +80,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         return False
 
     # Store coordinators in hass data
-    hass.data[DOMAIN][entry.entry_id] = coordinators
+    hass.data[DOMAIN][entry.entry_id] = {
+        "coordinators": coordinators,
+        "lgEss": lgEss,
+    }
 
     # Log successful setup
     _LOGGER.info(
@@ -117,10 +111,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Unload a config entry."""
-    coordinators = hass.data[DOMAIN][entry.entry_id]
+    coordinators = hass.data[DOMAIN][entry.entry_id]["coordinators"]
+    api = hass.data[DOMAIN][entry.entry_id]["lgEss"]
 
     # Unload all platforms first
     unload_ok = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
+    await api.destruct()
 
     # Close all coordinator sessions
     close_errors = []
@@ -149,22 +145,3 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
     await async_unload_entry(hass, entry)
     await async_setup_entry(hass, entry)
-
-
-async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Migrate old entry format to new format."""
-    _LOGGER.debug("Migrating LG ESS config entry from version %s", entry.version)
-
-    if entry.version == 1:
-        # Migration logic here if needed in the future
-        # For now, just update version
-        new_data = {**entry.data}
-        new_options = {**entry.options}
-
-        hass.config_entries.async_update_entry(
-            entry, data=new_data, options=new_options, version=2
-        )
-
-        _LOGGER.info("Migrated LG ESS config entry to version 2")
-
-    return True

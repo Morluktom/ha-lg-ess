@@ -13,9 +13,13 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
-from .coordinators.home import LgEssHomeDataUpdateCoordinator
-from .coordinators.common import LgEssCommonDataUpdateCoordinator
-from .coordinators.batt_settings import LgEssSettingsDataUpdateCoordinator
+
+from .coordinator import (
+    LgEssHomeDataUpdateCoordinator,
+    LgEssCommonDataUpdateCoordinator,
+    LgEssSettingsDataUpdateCoordinator,
+    LgEssSystemInfoDataUpdateCoordinator,
+)
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -40,7 +44,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up LG ESS select entities based on a config entry."""
-    coordinators = hass.data[DOMAIN][entry.entry_id]
+    coordinators = hass.data[DOMAIN][entry.entry_id]["coordinators"]
 
     entities = []
 

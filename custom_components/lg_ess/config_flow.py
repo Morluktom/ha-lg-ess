@@ -3,7 +3,6 @@
 import logging
 from typing import Any
 
-from pyess.aio_ess import ESS, ESSAuthException, ESSException
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -11,6 +10,12 @@ from homeassistant.helpers.service_info.zeroconf import ZeroconfServiceInfo
 from homeassistant.config_entries import ConfigFlowResult
 from homeassistant.const import CONF_HOST, CONF_PASSWORD
 from homeassistant.core import HomeAssistant
+
+from .lg_ess import (
+    LgEss,
+    LgEssAuthException,
+    LgEssException,
+)
 
 from .const import DOMAIN
 
@@ -34,9 +39,8 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> dict[str,
 
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
-
-    ess = await ESS.create(None, data[CONF_PASSWORD], data[CONF_HOST])
-    info = await ess.get_systeminfo()
+    ess = await LgEss.create(None, data[CONF_PASSWORD], data[CONF_HOST])
+    info = await ess.get_system_info()
     serialno = info["pms"]["serialno"]
 
     # Return info that you want to store in the config entry.
@@ -65,10 +69,10 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 return self.async_create_entry(
                     title=f"LG ESS {info['serialno']}", data=user_input
                 )
-            except ESSAuthException:
+            except LgEssAuthException:
                 _LOGGER.exception("Wrong password")
                 errors["base"] = "invalid_auth"
-            except ESSException:
+            except LgEssException:
                 _LOGGER.exception("Generic error setting up the ESS Api")
                 errors["base"] = "unknown"
             except Exception:  # pylint: disable=broad-except
@@ -89,14 +93,13 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             try:
                 info = await validate_input(self.hass, user_input)
                 await self.async_set_unique_id(info["serialno"])
-                self.hass.config_entries.async_update_entry(
-                    current, data=user_input)
+                self.hass.config_entries.async_update_entry(current, data=user_input)
                 await self.hass.config_entries.async_reload(current.entry_id)
                 return self.async_abort(reason="reconfiguration_successful")
-            except ESSAuthException:
+            except LgEssAuthException:
                 _LOGGER.exception("Wrong password")
                 errors["base"] = "invalid_auth"
-            except ESSException:
+            except LgEssException:
                 _LOGGER.exception("Generic error setting up the ESS Api")
                 errors["base"] = "unknown"
             except Exception:  # pylint: disable=broad-except
