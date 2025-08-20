@@ -27,70 +27,54 @@ from .coordinator import (
 _LOGGER = logging.getLogger(__name__)
 
 
-# Binary sensor entity definitions: (coordinator_key, key, name, device_class, icon, translation_key)
+# Binary sensor entity definitions: (key, device_class, icon, translation_key)
 BINARY_SENSOR_ENTITY_DEFINITIONS = [
     # Energy directions (from home coordinator)
     (
-        "home_coordinator",
         "direction_is_direct_consuming",
-        "Direct PV Consuming",
         BinarySensorDeviceClass.POWER,
         "mdi:solar-power-variant",
         "direct_consuming",
     ),
     (
-        "home_coordinator",
         "direction_is_battery_charging",
-        "Battery Charging",
         BinarySensorDeviceClass.BATTERY_CHARGING,
         "mdi:battery-charging",
         "battery_charging",
     ),
     (
-        "home_coordinator",
         "direction_is_battery_discharging",
-        "Battery Discharging",
         BinarySensorDeviceClass.BATTERY,
         "mdi:battery-minus",
         "battery_discharging",
     ),
     (
-        "home_coordinator",
         "direction_is_grid_selling",
-        "Grid Feed-In",
         BinarySensorDeviceClass.POWER,
         "mdi:transmission-tower-export",
         "grid_selling",
     ),
     (
-        "home_coordinator",
         "direction_is_grid_buying",
-        "Grid Import",
         BinarySensorDeviceClass.POWER,
         "mdi:transmission-tower-import",
         "grid_buying",
     ),
     (
-        "home_coordinator",
         "direction_is_charging_from_grid",
-        "Charging from Grid",
         BinarySensorDeviceClass.BATTERY_CHARGING,
         "mdi:battery-charging-outline",
         "charging_from_grid",
     ),
     # System status (from home coordinator)
     (
-        "home_coordinator",
         "system_online",
-        "System Online",
         BinarySensorDeviceClass.CONNECTIVITY,
         "mdi:wifi",
         "system_online",
     ),
     (
-        "home_coordinator",
         "pv_generating",
-        "PV Generating",
         BinarySensorDeviceClass.POWER,
         "mdi:solar-panel",
         "pv_generating",
@@ -114,18 +98,21 @@ async def async_setup_entry(
 
     # Create binary sensor entities from definitions
     for (
-        coordinator_key,
         key,
-        name,
         device_class,
         icon,
         translation_key,
     ) in BINARY_SENSOR_ENTITY_DEFINITIONS:
-        coordinator = coordinators.get(coordinator_key)
+        coordinator = None
+        for coordstr in coordinators:
+            coord = coordinators.get(coordstr)
+            if key in coord.data:
+                coordinator = coord
+                break
+
         if coordinator:
             description = BinarySensorEntityDescription(
                 key=key,
-                name=name,
                 device_class=device_class,
                 icon=icon,
                 translation_key=translation_key,
@@ -134,8 +121,7 @@ async def async_setup_entry(
             entities.append(LgEssBinarySensor(coordinator, description, entry))
         else:
             _LOGGER.warning(
-                "Coordinator %s not found for entity %s",
-                coordinator_key,
+                "Coordinator not found for entity %s",
                 key,
             )
 

@@ -21,6 +21,8 @@
     "entity": {
         "sensor": {
             "load_power": {"name": "Hausverbrauch"},
+            "load_consumption_today": {"name": "Hausverbrauch (Tag)"},
+            "load_consumption_month": {"name": "Hausverbrauch (Monat)"},
             "bat_user_soc": {"name": "Batterie Ladezustand"},
             "bat_status": {"name": "Batterie Status",  "state": {"0": "Standby","1": "laden", "2": "entladen", "6": "laden vom Netz", "10": "ausgeschaltet"}},
             "batt_directional": {"name": "Batterie Leistung"},
@@ -53,7 +55,6 @@
             "self_consumption_rate_month": {"name": "Eigenverbrauchsrate (Monat)"},
             "grid_independence_rate": {"name": "Autarkie (Heute)"},
             "grid_independence_rate_month": {"name": "Autarkie (Monat)"},
-
             "pms_model": {"name": "PMS Modell"},
             "pms_serialno": {"name": "PMS Seriennummer"},
             "pms_ac_input_power": {"name": "PMS AC Eingangsleistung"},
@@ -76,17 +77,16 @@
             "battery_cycle_count_2": {"name": "Batterie 2 Zyklenanzahl"},
             "battery_remaining_cap_2": {"name": "Batterie 2 Verbleibende Kapazität"},
             "battery_discharge_rate_2": {"name": "Batterie 2 Selbstentladungsrate"},
-            "battery_charge_energy_2": {"name": "Batterie 2 Ladeenergie"
-            },
+            "battery_charge_energy_2": {"name": "Batterie 2 Ladeenergie"},
             "battery_discharge_energy_2": {"name": "Batterie 2 Energiedurchsatz"},
             "battery_charge_cap_2": {"name": "Batterie 2 Ladekapazität"},
             "battery_discharge_cap_2": {"name": "Batterie 2 Kapazitätsdurchsatz"},
             "battery_deep_discharge_count_2": {"name": "Batterie 2 Tiefentladungen"},
             "battery_overcharge_count_2": {"name": "Batterie 2 Überladungen"},
-            "battery_a_serials": {"name": "Batterie A Seriennummern"},
-            "battery_b_serials": {"name": "Batterie B Seriennummern"},
-            "battery_a_pack_dates": {"name": "Batterie A Pack Daten"},
-            "battery_b_pack_dates": {"name": "Batterie B Pack Daten"},
+            "battery_a_serials": {"name": "Batterie 1 Seriennummern"},
+            "battery_b_serials": {"name": "Batterie 2 Seriennummern"},
+            "battery_a_pack_dates": {"name": "Batterie 1 Pack Daten"},
+            "battery_b_pack_dates": {"name": "Batterie 2 Pack Daten"},
             "pms_version": {"name": "PMS Version"},
             "pms_build_date": {"name": "PMS Build-Datum"},
             "pcs_version": {"name": "PCS Version"},
@@ -94,12 +94,9 @@
             "bms_unit1_version": {"name": "BMS Einheit 1 Version"},
             "bms_unit2_version": {"name": "BMS Einheit 2 Version"}
 
-
-
-
         },
         "binary_sensor": {
-            "direct_consuming": {"name": "Direktverbrauch PV", "state": {"off": "Aus","on": "An"}},
+            "direct_consuming": {"name": "PV Direktverbrauch", "state": {"off": "Aus","on": "An"}},
             "battery_charging": {"name": "Batterie lädt von PV", "state": {"off": "Aus","on": "An"}},
             "battery_discharging": {"name": "Batterie entlädt", "state": {"off": "Aus","on": "An"}},
             "grid_selling": {"name": "Netzeinspeisung", "state": {"off": "Aus","on": "An"}},

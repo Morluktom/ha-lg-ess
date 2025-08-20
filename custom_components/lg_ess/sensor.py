@@ -34,20 +34,32 @@ from .coordinator import (
 _LOGGER = logging.getLogger(__name__)
 
 
-# Entity definitions: (coordinator_key, sensor_key, unit, device_class, state_class, icon)
-ENTITY_DEFINITIONS = [
+# Sensor definitions: (sensor_key, unit, device_class, state_class, icon)
+SENSOR_ENTITY_DEFINITIONS = [
     # Load sensors
     (
-        "home_coordinator",
         "load_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
         SensorStateClass.MEASUREMENT,
         "mdi:home",
     ),
+    (
+        "load_consumption_today",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:home",
+    ),
+    (
+        "load_consumption_month",
+        UnitOfEnergy.KILO_WATT_HOUR,
+        SensorDeviceClass.ENERGY,
+        SensorStateClass.TOTAL_INCREASING,
+        "mdi:home",
+    ),
     # Battery sensors
     (
-        "home_coordinator",
         "bat_user_soc",
         PERCENTAGE,
         SensorDeviceClass.BATTERY,
@@ -55,7 +67,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery",
     ),
     (
-        "home_coordinator",
         "bat_status",
         None,
         SensorDeviceClass.ENUM,
@@ -63,7 +74,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-heart",
     ),
     (
-        "home_coordinator",
         "batt_directional",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -71,7 +81,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-charging-outline",
     ),
     (
-        "common_coordinator",
         "bat_energy_charge_today",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -79,7 +88,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-plus",
     ),
     (
-        "common_coordinator",
         "bat_energy_discharge_today",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -87,7 +95,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-minus",
     ),
     (
-        "common_coordinator",
         "bat_energy_charge_month",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -95,7 +102,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-plus",
     ),
     (
-        "common_coordinator",
         "bat_energy_discharge_month",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -104,7 +110,6 @@ ENTITY_DEFINITIONS = [
     ),
     # Battery detailed information from PMS/BMS
     (
-        "system_info_coordinator",
         "battery_capacity",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY_STORAGE,
@@ -112,7 +117,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-high",
     ),
     (
-        "system_info_coordinator",
         "battery_type",
         None,
         None,
@@ -120,7 +124,6 @@ ENTITY_DEFINITIONS = [
         "mdi:information-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_install_date",
         None,
         None,
@@ -128,7 +131,6 @@ ENTITY_DEFINITIONS = [
         "mdi:calendar",
     ),
     (
-        "system_info_coordinator",
         "battery_nameplate_energy_1",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -136,7 +138,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_cycle_count_1",
         None,
         None,
@@ -144,7 +145,6 @@ ENTITY_DEFINITIONS = [
         "mdi:counter",
     ),
     (
-        "system_info_coordinator",
         "battery_remaining_cap_1",
         "Ah",
         None,
@@ -152,7 +152,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-medium",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_rate_1",
         PERCENTAGE,
         None,
@@ -160,7 +159,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-arrow-down-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_charge_energy_1",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -168,7 +166,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-plus-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_energy_1",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -176,7 +173,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-minus-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_charge_cap_1",
         "Ah",
         None,
@@ -184,7 +180,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-charging-80",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_cap_1",
         "Ah",
         None,
@@ -192,7 +187,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-arrow-down",
     ),
     (
-        "system_info_coordinator",
         "battery_deep_discharge_count_1",
         None,
         None,
@@ -200,7 +194,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-alert",
     ),
     (
-        "system_info_coordinator",
         "battery_overcharge_count_1",
         None,
         None,
@@ -209,7 +202,6 @@ ENTITY_DEFINITIONS = [
     ),
     # Battery Unit 2 (if present)
     (
-        "system_info_coordinator",
         "battery_nameplate_energy_2",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -217,7 +209,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_cycle_count_2",
         None,
         None,
@@ -225,7 +216,6 @@ ENTITY_DEFINITIONS = [
         "mdi:counter",
     ),
     (
-        "system_info_coordinator",
         "battery_remaining_cap_2",
         "Ah",
         None,
@@ -233,7 +223,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-medium",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_rate_2",
         PERCENTAGE,
         None,
@@ -241,7 +230,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-arrow-down-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_charge_energy_2",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -249,7 +237,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-plus-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_energy_2",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -257,7 +244,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-minus-outline",
     ),
     (
-        "system_info_coordinator",
         "battery_charge_cap_2",
         "Ah",
         None,
@@ -265,7 +251,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-charging-80",
     ),
     (
-        "system_info_coordinator",
         "battery_discharge_cap_2",
         "Ah",
         None,
@@ -273,7 +258,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-arrow-down",
     ),
     (
-        "system_info_coordinator",
         "battery_deep_discharge_count_2",
         None,
         None,
@@ -281,7 +265,6 @@ ENTITY_DEFINITIONS = [
         "mdi:battery-alert",
     ),
     (
-        "system_info_coordinator",
         "battery_overcharge_count_2",
         None,
         None,
@@ -290,7 +273,6 @@ ENTITY_DEFINITIONS = [
     ),
     # Battery Serial Numbers and Pack Dates
     (
-        "system_info_coordinator",
         "battery_a_serials",
         None,
         None,
@@ -298,7 +280,6 @@ ENTITY_DEFINITIONS = [
         "mdi:identifier",
     ),
     (
-        "system_info_coordinator",
         "battery_b_serials",
         None,
         None,
@@ -306,7 +287,6 @@ ENTITY_DEFINITIONS = [
         "mdi:identifier",
     ),
     (
-        "system_info_coordinator",
         "battery_a_pack_dates",
         None,
         None,
@@ -314,7 +294,6 @@ ENTITY_DEFINITIONS = [
         "mdi:calendar-range",
     ),
     (
-        "system_info_coordinator",
         "battery_b_pack_dates",
         None,
         None,
@@ -323,7 +302,6 @@ ENTITY_DEFINITIONS = [
     ),
     # Grid sensors
     (
-        "home_coordinator",
         "grid_directional",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -331,7 +309,6 @@ ENTITY_DEFINITIONS = [
         "mdi:transmission-tower",
     ),
     (
-        "common_coordinator",
         "grid_frequency",
         UnitOfFrequency.HERTZ,
         SensorDeviceClass.FREQUENCY,
@@ -339,7 +316,6 @@ ENTITY_DEFINITIONS = [
         "mdi:sine-wave",
     ),
     (
-        "common_coordinator",
         "grid_voltage",
         UnitOfElectricPotential.VOLT,
         SensorDeviceClass.VOLTAGE,
@@ -347,7 +323,6 @@ ENTITY_DEFINITIONS = [
         "mdi:flash",
     ),
     (
-        "common_coordinator",
         "grid_energy_feed_in_today",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -355,7 +330,6 @@ ENTITY_DEFINITIONS = [
         "mdi:transmission-tower-export",
     ),
     (
-        "common_coordinator",
         "grid_energy_feed_in_month",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -363,7 +337,6 @@ ENTITY_DEFINITIONS = [
         "mdi:transmission-tower-export",
     ),
     (
-        "common_coordinator",
         "grid_energy_purchase_today",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -371,7 +344,6 @@ ENTITY_DEFINITIONS = [
         "mdi:transmission-tower-import",
     ),
     (
-        "common_coordinator",
         "grid_energy_purchase_month",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -380,7 +352,6 @@ ENTITY_DEFINITIONS = [
     ),
     # PV sensors
     (
-        "common_coordinator",
         "pv1_voltage",
         UnitOfElectricPotential.VOLT,
         SensorDeviceClass.VOLTAGE,
@@ -388,7 +359,6 @@ ENTITY_DEFINITIONS = [
         "mdi:flash",
     ),
     (
-        "common_coordinator",
         "pv2_voltage",
         UnitOfElectricPotential.VOLT,
         SensorDeviceClass.VOLTAGE,
@@ -396,7 +366,6 @@ ENTITY_DEFINITIONS = [
         "mdi:flash",
     ),
     (
-        "common_coordinator",
         "pv3_voltage",
         UnitOfElectricPotential.VOLT,
         SensorDeviceClass.VOLTAGE,
@@ -404,7 +373,6 @@ ENTITY_DEFINITIONS = [
         "mdi:flash",
     ),
     (
-        "common_coordinator",
         "pv1_current",
         UnitOfElectricCurrent.AMPERE,
         SensorDeviceClass.CURRENT,
@@ -412,7 +380,6 @@ ENTITY_DEFINITIONS = [
         "mdi:current-dc",
     ),
     (
-        "common_coordinator",
         "pv2_current",
         UnitOfElectricCurrent.AMPERE,
         SensorDeviceClass.CURRENT,
@@ -420,7 +387,6 @@ ENTITY_DEFINITIONS = [
         "mdi:current-dc",
     ),
     (
-        "common_coordinator",
         "pv3_current",
         UnitOfElectricCurrent.AMPERE,
         SensorDeviceClass.CURRENT,
@@ -428,7 +394,6 @@ ENTITY_DEFINITIONS = [
         "mdi:current-dc",
     ),
     (
-        "common_coordinator",
         "pv1_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -436,7 +401,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "common_coordinator",
         "pv2_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -444,7 +408,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "common_coordinator",
         "pv3_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -452,7 +415,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "common_coordinator",
         "pv_capacity",
         "kWp",
         None,
@@ -460,7 +422,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "common_coordinator",
         "pv_energy_today",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -468,7 +429,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "common_coordinator",
         "pv_energy_month",
         UnitOfEnergy.KILO_WATT_HOUR,
         SensorDeviceClass.ENERGY,
@@ -476,7 +436,6 @@ ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
     ),
     (
-        "home_coordinator",
         "pv_total_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -485,7 +444,6 @@ ENTITY_DEFINITIONS = [
     ),
     # PMS System Information
     (
-        "system_info_coordinator",
         "pms_model",
         None,
         None,
@@ -493,7 +451,6 @@ ENTITY_DEFINITIONS = [
         "mdi:information-outline",
     ),
     (
-        "system_info_coordinator",
         "pms_serialno",
         None,
         None,
@@ -501,7 +458,6 @@ ENTITY_DEFINITIONS = [
         "mdi:barcode",
     ),
     (
-        "system_info_coordinator",
         "pms_ac_input_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -509,7 +465,6 @@ ENTITY_DEFINITIONS = [
         "mdi:power-plug",
     ),
     (
-        "system_info_coordinator",
         "pms_ac_output_power",
         UnitOfPower.KILO_WATT,
         SensorDeviceClass.POWER,
@@ -517,7 +472,6 @@ ENTITY_DEFINITIONS = [
         "mdi:power-socket-eu",
     ),
     (
-        "system_info_coordinator",
         "pms_install_date",
         None,
         None,
@@ -526,7 +480,6 @@ ENTITY_DEFINITIONS = [
     ),
     # Version Information
     (
-        "system_info_coordinator",
         "pms_version",
         None,
         None,
@@ -534,7 +487,6 @@ ENTITY_DEFINITIONS = [
         "mdi:package-variant",
     ),
     (
-        "system_info_coordinator",
         "pms_build_date",
         None,
         None,
@@ -542,7 +494,6 @@ ENTITY_DEFINITIONS = [
         "mdi:clock-outline",
     ),
     (
-        "system_info_coordinator",
         "pcs_version",
         None,
         None,
@@ -550,7 +501,6 @@ ENTITY_DEFINITIONS = [
         "mdi:package-variant-closed",
     ),
     (
-        "system_info_coordinator",
         "bms_version",
         None,
         None,
@@ -558,7 +508,6 @@ ENTITY_DEFINITIONS = [
         "mdi:chip",
     ),
     (
-        "system_info_coordinator",
         "bms_unit1_version",
         None,
         None,
@@ -566,7 +515,6 @@ ENTITY_DEFINITIONS = [
         "mdi:chip",
     ),
     (
-        "system_info_coordinator",
         "bms_unit2_version",
         None,
         None,
@@ -574,22 +522,16 @@ ENTITY_DEFINITIONS = [
         "mdi:chip",
     ),
     # Status and operational sensors
-    ("home_coordinator", "operation_mode", None, None, None, "mdi:cog"),
+    ("operation_mode", None, None, None, "mdi:cog"),
     (
-        "home_coordinator",
         "self_consumption_rate",
         PERCENTAGE,
         None,
         SensorStateClass.MEASUREMENT,
         "mdi:percent",
     ),
-]
-
-
-# Calculated sensors: (coordinator_key, sensor_key, unit, device_class, state_class, icon)
-CALCULATED_SENSORS = [
+    # Calculated sensors
     (
-        "common_coordinator",
         "self_consumption_rate_month",
         PERCENTAGE,
         None,
@@ -597,7 +539,6 @@ CALCULATED_SENSORS = [
         "mdi:percent",
     ),
     (
-        "common_coordinator",
         "grid_independence_rate",
         PERCENTAGE,
         None,
@@ -605,7 +546,6 @@ CALCULATED_SENSORS = [
         "mdi:home-battery",
     ),
     (
-        "common_coordinator",
         "grid_independence_rate_month",
         PERCENTAGE,
         None,
@@ -625,14 +565,19 @@ async def async_setup_entry(
 
     # Create regular sensors from entity definitions
     for (
-        coordinator_key,
         sensor_key,
         unit,
         device_class,
         state_class,
         icon,
-    ) in ENTITY_DEFINITIONS:
-        coordinator = coordinators.get(coordinator_key)
+    ) in SENSOR_ENTITY_DEFINITIONS:
+        coordinator = None
+        for coordstr in coordinators:
+            coord = coordinators.get(coordstr)
+            if sensor_key in coord.data:
+                coordinator = coord
+                break
+
         if coordinator:
             entities.append(
                 LgEssSensor(
@@ -645,28 +590,10 @@ async def async_setup_entry(
                     icon,
                 )
             )
-
-    # Create calculated sensors
-    for (
-        coordinator_key,
-        sensor_key,
-        unit,
-        device_class,
-        state_class,
-        icon,
-    ) in CALCULATED_SENSORS:
-        coordinator = coordinators.get(coordinator_key)
-        if coordinator:
-            entities.append(
-                LgEssCalculatedSensor(
-                    coordinator,
-                    entry,
-                    sensor_key,
-                    unit,
-                    device_class,
-                    state_class,
-                    icon,
-                )
+        else:
+            _LOGGER.warning(
+                "Coordinator not found for entity %s",
+                sensor_key,
             )
 
     async_add_entities(entities)
@@ -714,45 +641,7 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
         if self.coordinator.data is None:
             return None
 
-        value = self.coordinator.data.get(self._key)
-
-        # Convert Wh to kWh and round to 3 decimal places
-        if value is not None:
-            if (
-                self._key in ["pv_capacity"]
-                or self._key in ["pv_energy_today"]
-                or self._key in ["pv_energy_month"]
-                or self._key in ["grid_energy_feed_in_today"]
-                or self._key in ["grid_energy_feed_in_month"]
-                or self._key in ["grid_energy_purchase_today"]
-                or self._key in ["grid_energy_purchase_month"]
-                or self._key in ["bat_energy_charge_today"]
-                or self._key in ["bat_energy_discharge_today"]
-                or self._key in ["bat_energy_charge_month"]
-                or self._key in ["bat_energy_discharge_month"]
-                or self._key in ["load_power"]
-                or self._key in ["batt_directional"]
-                or self._key in ["grid_directional"]
-                or self._key in ["pv1_power"]
-                or self._key in ["pv2_power"]
-                or self._key in ["pv3_power"]
-                or self._key in ["pv_total_power"]
-                or self._key in ["battery_nameplate_energy_1"]
-                or self._key in ["battery_remaining_cap_1"]
-                or self._key in ["battery_charge_energy_1"]
-                or self._key in ["battery_discharge_energy_1"]
-                or self._key in ["battery_nameplate_energy_2"]
-                or self._key in ["battery_remaining_cap_2"]
-                or self._key in ["battery_charge_energy_2"]
-                or self._key in ["battery_discharge_energy_2"]
-                or self._key in ["pms_ac_input_power"]
-            ):
-                return round(float(value) / 1000, 3)
-
-            if self._key in ["battery_capacity"]:
-                return round(float(value) / 10, 1)
-
-        return value
+        return self.coordinator.data.get(self._key)
 
     @property
     def extra_state_attributes(self) -> dict[str, Any] | None:
@@ -784,49 +673,3 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
                 attributes["system_status"] = self.coordinator.data["system_status"]
 
         return attributes if attributes else None
-
-
-class LgEssCalculatedSensor(LgEssSensor):
-    """LG ESS calculated sensor for derived values."""
-
-    @property
-    def native_value(self) -> Any:
-        """Return calculated sensor value."""
-        if self.coordinator.data is None:
-            return None
-
-        if self._key == "grid_independence_rate":
-            # Calculate grid independence: (Load - Grid Import) / Load * 100
-            load_power = self.coordinator.data.get("load_consumption_today", 0)
-            grid_power = self.coordinator.data.get("grid_energy_purchase_today", 0)
-
-            if load_power and load_power > 0:
-                # Positive grid power means import
-                import_power = max(0, grid_power)
-                independent_power = load_power - import_power
-                rate = (independent_power / load_power) * 100
-                return max(0, min(100, round(rate, 1)))
-            return 0
-        elif self._key == "grid_independence_rate_month":
-            # Calculate grid independence: (Load - Grid Import) / Load * 100
-            load_power = self.coordinator.data.get("load_consumption_month", 0)
-            grid_power = self.coordinator.data.get("grid_energy_purchase_month", 0)
-
-            if load_power and load_power > 0:
-                # Positive grid power means import
-                import_power = max(0, grid_power)
-                independent_power = load_power - import_power
-                rate = (independent_power / load_power) * 100
-                return max(0, min(100, round(rate, 1)))
-            return 0
-        elif self._key == "self_consumption_rate_month":
-            # Calculate self consumption rate: (PV - Grid Export) / PV * 100
-            pv = self.coordinator.data.get("pv_energy_month", 0)
-            grid = self.coordinator.data.get("grid_energy_feed_in_month", 0)
-
-            if pv and pv > 0:
-                rate = ((pv - grid) / pv) * 100
-                return max(0, min(100, round(rate, 1)))
-            return 0
-
-        return super().native_value

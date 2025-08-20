@@ -24,13 +24,11 @@ from .coordinator import (
 _LOGGER = logging.getLogger(__name__)
 
 
-# Select entity definitions: (coordinator_key, key, icon, translation_key, options)
+# Select entity definitions: (key, icon, options)
 SELECT_ENTITY_DEFINITIONS = [
     (
-        "settings_coordinator",
         "charging_mode",
         "mdi:battery-charging",
-        "charging_mode",
         ["fast_charge", "battery_care", "weather_forecast"],
     ),
     # Add more select entities here as needed
@@ -50,25 +48,28 @@ async def async_setup_entry(
 
     # Create select entities from definitions
     for (
-        coordinator_key,
         key,
         icon,
-        translation_key,
         options,
     ) in SELECT_ENTITY_DEFINITIONS:
-        coordinator = coordinators.get(coordinator_key)
+        coordinator = None
+        for coordstr in coordinators:
+            coord = coordinators.get(coordstr)
+            if key in coord.data:
+                coordinator = coord
+                break
+
         if coordinator:
             description = SelectEntityDescription(
                 key=key,
                 icon=icon,
-                translation_key=translation_key,
+                translation_key=key,
                 options=options,
             )
             entities.append(LgEssSelect(coordinator, description, entry))
         else:
             _LOGGER.warning(
-                "Coordinator %s not found for entity %s",
-                coordinator_key,
+                "Coordinator not found for entity %s",
                 key,
             )
 
