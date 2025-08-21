@@ -327,10 +327,7 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
         # Calculate directional sensors
         self._calculate_directional_sensors(data)
 
-        # Calculate grid independence
-
         # Add system online status
-        data["system_online"] = True
         data["pv_generating"] = data.get("pv_total_power", 0) > 0
 
     async def async_get_system_info(self, data: dict[str, Any]) -> None:

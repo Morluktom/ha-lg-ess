@@ -102,7 +102,6 @@
             "grid_selling": {"name": "Netzeinspeisung", "state": {"off": "Aus","on": "An"}},
             "grid_buying": {"name": "Netzbezug", "state": {"off": "Aus","on": "An"}},
             "charging_from_grid": {"name": "Batterie lädt aus Netz", "state": {"off": "Aus","on": "An"}},
-            "system_online": {"name": "System online"},
             "pv_generating": {"name": "PV erzeugt", "state": {"off": "Aus","on": "An"}}
         },
          "switch": {

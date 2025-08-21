@@ -572,8 +572,7 @@ async def async_setup_entry(
         icon,
     ) in SENSOR_ENTITY_DEFINITIONS:
         coordinator = None
-        for coordstr in coordinators:
-            coord = coordinators.get(coordstr)
+        for coord in coordinators.values():
             if sensor_key in coord.data:
                 coordinator = coord
                 break

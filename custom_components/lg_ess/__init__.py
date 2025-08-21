@@ -6,8 +6,9 @@ import logging
 from homeassistant.config_entries import ConfigEntry, ConfigEntryNotReady
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
+from homeassistant.helpers import entity_registry
 
-from .const import DOMAIN
+from .const import DOMAIN, KEYS_ALWAYS_DISABLE, KEYS_BATTERY_1, KEYS_BATTERY_2
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
@@ -106,6 +107,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN].pop(entry.entry_id, None)
         return False
 
+    # Disable useless Entrys
+    await async_disable_useless_entries(hass, entry)
+
     return True
 
 
@@ -145,3 +149,95 @@ async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry) -> None:
 
     await async_unload_entry(hass, entry)
     await async_setup_entry(hass, entry)
+
+
+async def async_disable_useless_entries(
+    hass: HomeAssistant, entry: ConfigEntry
+) -> None:
+    """Disable useless entries."""
+    # Check if we have already deactivated
+    if not entry.data.get("entities_disabled", False):
+        coordinators = hass.data[DOMAIN][entry.entry_id]["coordinators"]
+
+        for coordinator in coordinators.values():
+            # Check if battery 1 is present
+            if "battery_nameplate_energy_1" in coordinator.data:
+                value = coordinator.safe_number_convert(
+                    coordinator.data["battery_nameplate_energy_1"]
+                )
+                batt1present = value > 0
+
+            # Check if battery 2 is present
+            if "battery_nameplate_energy_2" in coordinator.data:
+                value = coordinator.safe_number_convert(
+                    coordinator.data["battery_nameplate_energy_2"]
+                )
+                batt2present = value > 0
+
+        # List of all sensors
+        unique_ids = await list_sensor_unique_ids(hass, DOMAIN)
+
+        unique_ids_to_disable = []
+        unique_ids_to_disable.extend(KEYS_ALWAYS_DISABLE)
+
+        if not batt1present:
+            unique_ids_to_disable.extend(KEYS_BATTERY_1)
+
+        if not batt2present:
+            unique_ids_to_disable.extend(KEYS_BATTERY_2)
+
+        for unique_id_to_disable in unique_ids_to_disable:
+            for unique_id in unique_ids:
+                if unique_id_to_disable in unique_id:
+                    await async_disable_entity_by_unique_id(hass, unique_id, DOMAIN)
+                    break
+
+        # FSet a flag so we don't do this every time
+        hass.config_entries.async_update_entry(
+            entry, data={**entry.data, "entities_disabled": True}
+        )
+
+
+async def async_disable_entity_by_unique_id(
+    hass: HomeAssistant, unique_id: str, platform: str
+):
+    """Disables an entity based on its unique_id (and platform), if it exists."""
+    registry = entity_registry.async_get(hass)
+
+    for entry in registry.entities.values():
+        if entry.platform == platform and entry.unique_id == unique_id:
+            if entry.disabled:
+                _LOGGER.debug(
+                    "Entity %s (%s) is already disabled.", entry.entity_id, unique_id
+                )
+                return
+
+            registry.async_update_entity(
+                entry.entity_id,
+                disabled_by=entity_registry.RegistryEntryDisabler.USER,
+            )
+            _LOGGER.info(
+                "Entity %s (%s) has been disabled.", entry.entity_id, unique_id
+            )
+            return
+
+    _LOGGER.debug(
+        "No entity with unique_id %s found on platform %s.", unique_id, platform
+    )
+
+
+async def list_sensor_unique_ids(hass: HomeAssistant, domain: str) -> list:
+    """List all sensor of this domain."""
+    registry = entity_registry.async_get(hass)
+
+    sensors = []
+
+    for entity_id, entry in registry.entities.items():
+        if (entry.platform == domain) and (
+            entity_id.startswith(
+                ("sensor.", "binary_sensor.", "switch", "number", "select")
+            )
+        ):
+            sensors.append(entry.unique_id)
+
+    return sensors

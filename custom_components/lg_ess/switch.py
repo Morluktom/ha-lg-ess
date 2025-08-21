@@ -66,8 +66,7 @@ async def async_setup_entry(
         icon,
     ) in SWITCH_ENTITY_DEFINITIONS:
         coordinator = None
-        for coordstr in coordinators:
-            coord = coordinators.get(coordstr)
+        for coord in coordinators.values():
             if key in coord.data:
                 coordinator = coord
                 break

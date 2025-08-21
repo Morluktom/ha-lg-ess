@@ -101,7 +101,6 @@
             "grid_selling": {"name": "Grid Feed-in"},
             "grid_buying": {"name": "Grid Consumption"},
             "charging_from_grid": {"name": "Battery Charging from Grid"},
-            "system_online": {"name": "System Online"},
             "pv_generating": {"name": "PV Generating"}
         },
         "switch": {

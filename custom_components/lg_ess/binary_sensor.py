@@ -68,12 +68,6 @@ BINARY_SENSOR_ENTITY_DEFINITIONS = [
     ),
     # System status (from home coordinator)
     (
-        "system_online",
-        BinarySensorDeviceClass.CONNECTIVITY,
-        "mdi:wifi",
-        "system_online",
-    ),
-    (
         "pv_generating",
         BinarySensorDeviceClass.POWER,
         "mdi:solar-panel",
@@ -104,8 +98,7 @@ async def async_setup_entry(
         translation_key,
     ) in BINARY_SENSOR_ENTITY_DEFINITIONS:
         coordinator = None
-        for coordstr in coordinators:
-            coord = coordinators.get(coordstr)
+        for coord in coordinators.values():
             if key in coord.data:
                 coordinator = coord
                 break
