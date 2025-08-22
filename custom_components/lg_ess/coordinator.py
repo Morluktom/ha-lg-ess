@@ -562,9 +562,9 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
             is_discharging = data.get("direction_is_battery_discharging", 0)
 
             if is_charging:
-                data["batt_directional"] = abs(bat_power)
-            elif is_discharging:
                 data["batt_directional"] = -abs(bat_power)
+            elif is_discharging:
+                data["batt_directional"] = abs(bat_power)
             else:
                 data["batt_directional"] = 0
 
