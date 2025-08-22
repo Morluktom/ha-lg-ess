@@ -17,8 +17,6 @@ from .const import DOMAIN
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -80,9 +78,7 @@ class LgEssSelect(CoordinatorEntity, SelectEntity):
 
     def __init__(
         self,
-        coordinator: LgEssHomeDataUpdateCoordinator
-        | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator,
+        coordinator: LgEssHomeDataUpdateCoordinator | LgEssCommonDataUpdateCoordinator,
         description: SelectEntityDescription,
         entry: ConfigEntry,
     ) -> None:
@@ -147,19 +143,5 @@ class LgEssSelect(CoordinatorEntity, SelectEntity):
 
         attributes = {}
         # data_key = self.entity_description.key
-
-        # Add context-specific attributes
-        # if data_key == "charging_mode":
-        #     attributes.update(
-        #         {
-        #             "is_charging": self.coordinator.data.get(
-        #                 "direction_is_battery_charging", 0
-        #             ),
-        #             "charging_from_grid": self.coordinator.data.get(
-        #                 "direction_is_charging_from_grid", 0
-        #             ),
-        #            "pv_power": self.coordinator.data.get("pv_total_power", 0),
-        #        }
-        #     )
 
         return attributes if attributes else None

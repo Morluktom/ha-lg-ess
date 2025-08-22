@@ -20,8 +20,6 @@ from .const import DOMAIN
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -73,10 +71,6 @@ BINARY_SENSOR_ENTITY_DEFINITIONS = [
         "mdi:solar-panel",
         "pv_generating",
     ),
-    # Add more binary sensors here as needed
-    # ("settings_coordinator", "winter_mode_active", "Winter Mode Active", None, "mdi:snowflake", "winter_mode_active"),
-    # ("settings_coordinator", "backup_mode_active", "Backup Mode Active", None, "mdi:battery-heart", "backup_mode_active"),
-    # ("settings_coordinator", "auto_charge_active", "Auto Charge Active", BinarySensorDeviceClass.BATTERY_CHARGING, "mdi:battery-plus", "auto_charge_active"),
 ]
 
 
@@ -126,9 +120,7 @@ class LgEssBinarySensor(CoordinatorEntity, BinarySensorEntity):
 
     def __init__(
         self,
-        coordinator: LgEssHomeDataUpdateCoordinator
-        | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator,
+        coordinator: LgEssHomeDataUpdateCoordinator | LgEssCommonDataUpdateCoordinator,
         description: BinarySensorEntityDescription,
         entry: ConfigEntry,
     ) -> None:
@@ -202,40 +194,5 @@ class LgEssBinarySensor(CoordinatorEntity, BinarySensorEntity):
 
         # Additional attributes depending on sensor type
         attributes = {}
-        data_key = self.entity_description.key
-
-        if data_key.startswith("direction_"):
-            # For direction sensors: add current power values
-            if "battery" in data_key:
-                attributes["power_w"] = self.coordinator.data.get("batt_directional", 0)
-            elif "grid" in data_key:
-                attributes["power_w"] = self.coordinator.data.get("grid_directional", 0)
-            elif "pv" in data_key or "direct" in data_key:
-                attributes["power_w"] = self.coordinator.data.get("pv_total_power", 0)
-
-        elif data_key == "pv_generating":
-            attributes["pv_power_w"] = self.coordinator.data.get("pv_total_power", 0)
-            # If available from common coordinator
-            if hasattr(self.coordinator, "data") and self.coordinator.data:
-                attributes["pv1_power_w"] = self.coordinator.data.get("pv1_power", 0)
-                attributes["pv2_power_w"] = self.coordinator.data.get("pv2_power", 0)
-                attributes["pv3_power_w"] = self.coordinator.data.get("pv3_power", 0)
-
-        elif data_key in [
-            "winter_mode_active",
-            "backup_mode_active",
-            "auto_charge_active",
-        ]:
-            # Additional settings information
-            if data_key == "backup_mode_active":
-                attributes["backup_soc"] = self.coordinator.data.get("backup_soc", 0)
-            elif data_key == "winter_mode_active":
-                attributes["winter_status"] = self.coordinator.data.get(
-                    "winter_status", "unknown"
-                )
-            elif data_key == "auto_charge_active":
-                attributes["charging_mode"] = self.coordinator.data.get(
-                    "charging_mode", "unknown"
-                )
 
         return attributes if attributes else None

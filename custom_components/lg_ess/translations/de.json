@@ -1,23 +1,48 @@
 {
+
     "config": {
-        "abort": {
-            "already_configured": "Gerät ist schon eingerichtet"
+        "step": {
+          "user": {
+            "title": "LG ESS einrichten",
+            "description": "Geben Sie die Verbindungsdaten für Ihr LG ESS System ein.",
+            "data": {
+              "host": "Host (IP-Adresse)",
+              "password": "Passwort",
+              "update_interval": "Aktualisierungsintervall (Sekunden)"
+            }
+          },
+          "reconfigure": {
+            "title": "LG ESS neu konfigurieren",
+            "description": "Aktualisieren Sie die Verbindungsdaten für Ihr LG ESS System.",
+            "data": {
+              "host": "Host (IP-Adresse)",
+              "password": "Passwort",
+              "update_interval": "Aktualisierungsintervall (Sekunden)"
+            }
+          }
         },
         "error": {
-            "cannot_connect": "Verbindungsfehler",
-            "invalid_auth": "Authentifizierung fehlgeschlagen",
-            "unknown": "Unerwarteter Fehler"
+          "invalid_auth": "Ungültige Authentifizierung. Überprüfen Sie Ihr Passwort.",
+          "unknown": "Unbekannter Fehler beim Verbinden mit dem LG ESS System."
         },
-        "step": {
-            "user": {
-                "data": {
-                    "host": "Host",
-                    "password": "Passwort",
-                    "username": "Nutzername"
-                }
-            }
+        "abort": {
+          "already_configured": "Gerät ist bereits konfiguriert",
+          "no_ipv4_address": "Keine IPv4-Adresse gefunden",
+          "reconfiguration_successful": "Neukonfiguration erfolgreich abgeschlossen"
         }
-    },
+      },
+      "options": {
+        "step": {
+          "init": {
+            "title": "LG ESS Optionen",
+            "description": "Konfigurieren Sie die Einstellungen für Ihr LG ESS System.",
+            "data": {
+              "update_interval": "Aktualisierungsintervall (5-20 Sekunden)"
+            }
+          }
+        }
+      },
+
     "entity": {
         "sensor": {
             "load_power": {"name": "Hausverbrauch"},

@@ -32,8 +32,6 @@ from .lg_ess import (
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -105,9 +103,7 @@ class LgEssNumber(CoordinatorEntity, NumberEntity):
 
     def __init__(
         self,
-        coordinator: LgEssHomeDataUpdateCoordinator
-        | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator,
+        coordinator: LgEssHomeDataUpdateCoordinator | LgEssCommonDataUpdateCoordinator,
         description: NumberEntityDescription,
         entry: ConfigEntry,
     ) -> None:

@@ -16,9 +16,16 @@ MANUFACTURER: Final = "LG Electronics"
 MODEL: Final = "ESS Inverter"
 
 # Update intervals
-UPDATE_INTERVAL_FAST: Final = 10  # seconds for switch updates
-UPDATE_INTERVAL_NORMAL: Final = 30  # seconds for sensor updates
-DEFAULT_SCAN_INTERVAL: Final = 30
+SCAN_INTERVAL_COMMON: Final = 30
+SCAN_INTERVAL_SYSTEM_INFO: Final = 900
+
+# Configuration constants
+CONF_UPDATE_INTERVAL = "update_interval"
+
+# Default values
+DEFAULT_UPDATE_INTERVAL = 10  # Sekunden
+MIN_UPDATE_INTERVAL = 5  # Minimum 5 Sekunden
+MAX_UPDATE_INTERVAL = 20  # Maximum 20 Sekunden
 
 
 # Keys always disable

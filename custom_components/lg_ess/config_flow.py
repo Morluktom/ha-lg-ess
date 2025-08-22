@@ -17,19 +17,29 @@ from .lg_ess import (
     LgEssException,
 )
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_UPDATE_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
+
+# Update-Intervall Konstanten
+MIN_UPDATE_INTERVAL = 5
+MAX_UPDATE_INTERVAL = 20
+DEFAULT_UPDATE_INTERVAL = 10
 
 
 def _ess_schema(
     host: str | None = None,
     pw: str | None = None,
+    update_interval: int = DEFAULT_UPDATE_INTERVAL,
 ):
     return vol.Schema(
         {
             vol.Required(CONF_HOST, default=host): str,
             vol.Required(CONF_PASSWORD, default=pw): str,
+            vol.Required(CONF_UPDATE_INTERVAL, default=update_interval): vol.All(
+                vol.Coerce(int),
+                vol.Range(min=MIN_UPDATE_INTERVAL, max=MAX_UPDATE_INTERVAL),
+            ),
         }
     )
 
@@ -54,7 +64,12 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Initialize the ESS config flow."""
         self.discovery_schema: vol.Schema | None = None
 
-    VERSION = 2
+    VERSION = 1
+
+    @staticmethod
+    def async_get_options_flow(config_entry):
+        """Return the options flow."""
+        return EssOptionsFlowHandler()
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
@@ -62,6 +77,10 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """Handle the initial step."""
         errors: dict[str, str] = {}
         if user_input is not None:
+            # Setze Default-Wert falls nicht angegeben
+            if CONF_UPDATE_INTERVAL not in user_input:
+                user_input[CONF_UPDATE_INTERVAL] = DEFAULT_UPDATE_INTERVAL
+
             try:
                 info = await validate_input(self.hass, user_input)
                 await self.async_set_unique_id(info["serialno"])
@@ -111,6 +130,9 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=_ess_schema(
                 host=current.data[CONF_HOST],
                 pw=current.data[CONF_PASSWORD],
+                update_interval=current.data.get(
+                    CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
+                ),
             ),
             errors=errors,
         )
@@ -150,3 +172,36 @@ class EssConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         self.discovery_schema = _ess_schema(host)
 
         return await self.async_step_user()
+
+
+class EssOptionsFlowHandler(config_entries.OptionsFlow):
+    """Handle LG ESS options."""
+
+    async def async_step_init(
+        self, user_input: dict[str, Any] | None = None
+    ) -> ConfigFlowResult:
+        """Manage the options."""
+        if user_input is not None:
+            # Aktualisiere die config entry mit neuen Optionen
+            return self.async_create_entry(title="", data=user_input)
+
+        # Hole aktuelle Werte aus data und options
+        current_interval = self.config_entry.options.get(
+            CONF_UPDATE_INTERVAL,
+            self.config_entry.data.get(CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL),
+        )
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema(
+                {
+                    vol.Optional(
+                        CONF_UPDATE_INTERVAL,
+                        default=current_interval,
+                    ): vol.All(
+                        vol.Coerce(int),
+                        vol.Range(min=MIN_UPDATE_INTERVAL, max=MAX_UPDATE_INTERVAL),
+                    ),
+                }
+            ),
+        )

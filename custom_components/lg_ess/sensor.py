@@ -27,8 +27,7 @@ from .const import DOMAIN
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
+    LgEssSlowUpdateCoordinator,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -605,8 +604,7 @@ class LgEssSensor(CoordinatorEntity, SensorEntity):
         self,
         coordinator: LgEssHomeDataUpdateCoordinator
         | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator
-        | LgEssSystemInfoDataUpdateCoordinator,
+        | LgEssSlowUpdateCoordinator,
         entry: ConfigEntry,
         key: str,
         unit: str | None,

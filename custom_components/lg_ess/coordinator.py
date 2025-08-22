@@ -18,7 +18,10 @@ from .const import (
     DOMAIN,
     MANUFACTURER,
     MODEL,
-    DEFAULT_SCAN_INTERVAL,
+    SCAN_INTERVAL_COMMON,
+    SCAN_INTERVAL_SYSTEM_INFO,
+    CONF_UPDATE_INTERVAL,
+    DEFAULT_UPDATE_INTERVAL,
 )
 
 from .lg_ess import (
@@ -637,36 +640,6 @@ class LgEssBaseCoordinator(DataUpdateCoordinator):
             )
 
 
-class LgEssSettingsDataUpdateCoordinator(LgEssBaseCoordinator):
-    """Class to manage fetching settings data from the LG ESS API."""
-
-    def __init__(self, hass: HomeAssistant, lgEss: LgEss, entry: ConfigEntry) -> None:
-        """Initialize."""
-        super().__init__(
-            hass,
-            lgEss,
-            _LOGGER,
-            name="LG ESS Settings",
-            # Settings ändern sich selten, daher längerer Intervall
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL * 3),
-            config_entry=entry,
-        )
-
-    async def _async_update_data(self) -> dict[str, Any]:
-        """Update settings data via direct HTTP API calls."""
-        try:
-            data = {}
-
-            # Get Battery settings
-            await self.async_get_setting_battery(data)
-
-            return data
-
-        except Exception as err:
-            _LOGGER.error("Error communicating with LG ESS Settings: %s", err)
-            raise UpdateFailed(f"Error communicating with API: {err}") from err
-
-
 class LgEssCommonDataUpdateCoordinator(LgEssBaseCoordinator):
     """Class to manage fetching common data from the LG ESS API."""
 
@@ -677,7 +650,7 @@ class LgEssCommonDataUpdateCoordinator(LgEssBaseCoordinator):
             lgEss,
             _LOGGER,
             name="LG ESS Common",
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+            update_interval=timedelta(seconds=SCAN_INTERVAL_COMMON),
             config_entry=entry,
         )
 
@@ -688,6 +661,9 @@ class LgEssCommonDataUpdateCoordinator(LgEssBaseCoordinator):
 
             # Get common data (detailed information)
             await self.async_get_common_data(data)
+
+            # Get Battery settings
+            await self.async_get_setting_battery(data)
 
             return data
 
@@ -701,12 +677,29 @@ class LgEssHomeDataUpdateCoordinator(LgEssBaseCoordinator):
 
     def __init__(self, hass: HomeAssistant, lgEss: LgEss, entry: ConfigEntry) -> None:
         """Initialize."""
+
+        # Hole das Update-Intervall aus der Konfiguration
+        update_interval_seconds = entry.data.get(
+            CONF_UPDATE_INTERVAL, DEFAULT_UPDATE_INTERVAL
+        )
+
+        # Falls es in den Optionen gesetzt ist, verwende das
+        if entry.options and CONF_UPDATE_INTERVAL in entry.options:
+            update_interval_seconds = entry.options[CONF_UPDATE_INTERVAL]
+
+        update_interval = timedelta(seconds=update_interval_seconds)
+
+        _LOGGER.info(
+            "LG ESS Coordinator initialized with update interval: %s seconds",
+            update_interval_seconds,
+        )
+
         super().__init__(
             hass,
             lgEss,
             _LOGGER,
             name="LG ESS Home",
-            update_interval=timedelta(seconds=DEFAULT_SCAN_INTERVAL),
+            update_interval=update_interval,
             config_entry=entry,
         )
 
@@ -724,8 +717,17 @@ class LgEssHomeDataUpdateCoordinator(LgEssBaseCoordinator):
             _LOGGER.error("Error communicating with LG ESS Home: %s", err)
             raise UpdateFailed(f"Error communicating with API: {err}") from err
 
+    async def async_update_options(self, options: dict):
+        """Update coordinator when options change."""
+        if CONF_UPDATE_INTERVAL in options:
+            new_interval = timedelta(seconds=options[CONF_UPDATE_INTERVAL])
+            self.update_interval = new_interval
+            _LOGGER.info(
+                "Update interval changed to %s seconds", options[CONF_UPDATE_INTERVAL]
+            )
 
-class LgEssSystemInfoDataUpdateCoordinator(LgEssBaseCoordinator):
+
+class LgEssSlowUpdateCoordinator(LgEssBaseCoordinator):
     """Class to manage fetching system information data from the LG ESS API."""
 
     def __init__(self, hass: HomeAssistant, lgEss: LgEss, entry: ConfigEntry) -> None:
@@ -736,7 +738,7 @@ class LgEssSystemInfoDataUpdateCoordinator(LgEssBaseCoordinator):
             _LOGGER,
             name="LG ESS System Info",
             update_interval=timedelta(
-                seconds=DEFAULT_SCAN_INTERVAL * 4
+                seconds=SCAN_INTERVAL_SYSTEM_INFO
             ),  # Update less frequently
             config_entry=entry,
         )

@@ -19,8 +19,6 @@ from .const import DOMAIN
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -88,9 +86,7 @@ class LgEssSwitch(CoordinatorEntity, SwitchEntity):
 
     def __init__(
         self,
-        coordinator: LgEssHomeDataUpdateCoordinator
-        | LgEssCommonDataUpdateCoordinator
-        | LgEssSettingsDataUpdateCoordinator,
+        coordinator: LgEssHomeDataUpdateCoordinator | LgEssCommonDataUpdateCoordinator,
         entry: ConfigEntry,
         key: str,
         device_class: SwitchDeviceClass | None = None,

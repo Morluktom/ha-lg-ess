@@ -12,8 +12,7 @@ from .const import DOMAIN, KEYS_ALWAYS_DISABLE, KEYS_BATTERY_1, KEYS_BATTERY_2
 from .coordinator import (
     LgEssHomeDataUpdateCoordinator,
     LgEssCommonDataUpdateCoordinator,
-    LgEssSettingsDataUpdateCoordinator,
-    LgEssSystemInfoDataUpdateCoordinator,
+    LgEssSlowUpdateCoordinator,
 )
 from .lg_ess import (
     LgEss,
@@ -45,13 +44,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     # Initialize all coordinators
     home_coordinator = LgEssHomeDataUpdateCoordinator(hass, lgEss, entry)
     common_coordinator = LgEssCommonDataUpdateCoordinator(hass, lgEss, entry)
-    settings_coordinator = LgEssSettingsDataUpdateCoordinator(hass, lgEss, entry)
-    system_info_coordinator = LgEssSystemInfoDataUpdateCoordinator(hass, lgEss, entry)
+    system_info_coordinator = LgEssSlowUpdateCoordinator(hass, lgEss, entry)
 
     coordinators = {
         "home_coordinator": home_coordinator,
         "common_coordinator": common_coordinator,
-        "settings_coordinator": settings_coordinator,
         "system_info_coordinator": system_info_coordinator,
     }
 
