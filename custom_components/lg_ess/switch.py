@@ -151,7 +151,11 @@ class LgEssSwitch(CoordinatorEntity, SwitchEntity):
             return self._optimistic_state
 
         # Get status
-        state = self.coordinator.data.get(self._data_key)
+        data_key = self._data_key
+        if data_key == "operation_mode":
+            state = self.coordinator.data.get("operation_status")
+        else:
+            state = self.coordinator.data.get(data_key)
 
         if state is None:
             return None

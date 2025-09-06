@@ -75,7 +75,7 @@
             "pv_energy_today": {"name": "PV Energie Gesamt (Heute)"},
             "pv_energy_month": {"name": "PV Energie Gesamt (Monat)"},
             "pv_total_power": {"name": "PV Gesamtleistung"},
-            "operation_mode": {"name": "Betriebsmodus", "state": {"0": "Stop","1": "Normal Betrieb", "2": "Nur PV Modus"}},
+            "operation_mode": {"name": "Betriebsmodus", "state": {"0": "Stop","1": "Normal Betrieb", "2": "Nur PV Modus", "6": "laden vom Netz"}},
             "self_consumption_rate": {"name": "Eigenverbrauchsrate (Heute)"},
             "self_consumption_rate_month": {"name": "Eigenverbrauchsrate (Monat)"},
             "grid_independence_rate": {"name": "Autarkie (Heute)"},

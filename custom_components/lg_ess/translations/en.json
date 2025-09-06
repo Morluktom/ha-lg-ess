@@ -50,7 +50,7 @@
             "pv_energy_today": {"name": "PV Total Energy (Today)"},
             "pv_energy_month": {"name": "PV Total Energy (Month)"},
             "pv_total_power": {"name": "PV Total Power"},
-            "operation_mode": {"name": "Operation Mode", "state": {"0": "Stop", "1": "Normal Operation", "2": "PV Only Mode"}},
+            "operation_mode": {"name": "Operation Mode", "state": {"0": "Stop", "1": "Normal Operation", "2": "PV Only Mode", "6": "charging from grid"}},
             "self_consumption_rate": {"name": "Self-consumption Rate (Today)"},
             "self_consumption_rate_month": {"name": "Self-consumption Rate (Month)"},
             "grid_independence_rate": {"name": "Grid Independence (Today)"},
