@@ -1,14 +1,33 @@
-.HA_VERSION
-home-assistant*
-.storage/
-automations.yaml
-blueprints/
-configuration.yaml
-scenes.yaml
-scripts.yaml
-secrets.yaml
-.ha_run.lock
+# macOS
+.DS_Store
+__MACOSX/
 
-custom_components/hacs/
-custom_components/lg_ess/__pycache__/
-custom_components/lg_ess/coordinators/__pycache__/
+# Python
+__pycache__/
+*.pyc
+
+# Dev venv
+dev/.venv/
+
+# HA runtime state (alles in .config außer configuration.yaml)
+dev/.config/.storage/
+dev/.config/.cache/
+dev/.config/blueprints/
+dev/.config/home-assistant.log*
+dev/.config/.HA_VERSION
+dev/.config/.ha_run.lock
+
+# HA state das versehentlich in custom_components/ gelandet ist
+custom_components/.storage/
+custom_components/.cache/
+custom_components/blueprints/
+custom_components/home-assistant*
+custom_components/home-assistant_v2.db
+custom_components/configuration.yaml
+custom_components/automations.yaml
+custom_components/scripts.yaml
+custom_components/scenes.yaml
+custom_components/secrets.yaml
+custom_components/.HA_VERSION
+custom_components/.ha_run.lock
+custom_components/init/

@@ -1,1 +1,8 @@
-homeassistant>=2025.8.2
+# Testing
+pytest
+pytest-asyncio
+pytest-homeassistant-custom-component
+
+# Linting / formatting
+ruff
+pylint
