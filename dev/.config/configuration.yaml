@@ -1,0 +1,22 @@
+homeassistant:
+
+frontend:
+
+config:
+
+api:
+
+websocket_api:
+
+http:
+  server_host: "0.0.0.0"
+  server_port: 8123
+
+logger:
+  default: warning
+  logs:
+    custom_components.lg_ess: debug
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

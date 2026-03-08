@@ -1,0 +1,49 @@
+{
+  "name": "${localWorkspaceFolderBasename}-dev",
+  "build": {
+    "dockerfile": "../dev/Dockerfile",
+    "context": "../dev"
+  },
+  "runArgs": [
+    "--name",
+    "${localWorkspaceFolderBasename}-dev",
+    "--network=host"
+  ],
+  "appPort": [8123],
+  "postCreateCommand": "dev/bootstrap.sh",
+  "overrideCommand": false,
+  "mounts": [
+    "source=${localWorkspaceFolder}/dev/.config,target=/config,type=bind,consistency=cached",
+    "source=${localWorkspaceFolder}/custom_components,target=/config/custom_components,type=bind,consistency=cached"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        "ms-python.pylint",
+        "github.vscode-github-actions",
+        "ryanluker.vscode-coverage-gutters"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/dev/.venv/bin/python",
+        "python.testing.pytestEnabled": true,
+        "python.testing.pytestArgs": ["tests"],
+        "editor.formatOnSave": true,
+        "editor.rulers": [88],
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      }
+    }
+  },
+  "forwardPorts": [8123],
+  "portsAttributes": {
+    "8123": {
+      "label": "Home Assistant",
+      "onAutoForward": "notify"
+    }
+  }
+}
